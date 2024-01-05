@@ -58,4 +58,10 @@ router.post('/logout', (req, res) => {
   }
 });
 
+router.post('/search', (req, res) => {
+  if (req.session.logged_in) {
+  res.redirect('search');
+  }
+});
+
 module.exports = router;

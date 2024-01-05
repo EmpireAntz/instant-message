@@ -15,6 +15,7 @@
       <nav>
         {{#if logged_in}}
         <button class="no-button" id="logout">logout</button>
+        <button class="no-button" id="search">search</button>
         {{else}}
         <a href="/login">login</a>
         {{/if}}
@@ -32,6 +33,7 @@
   <!-- Render script for logged in users only -->
   {{#if logged_in}}
   <script src="/js/logout.js"></script>
+  <script src="./js/search.js"></script>
   {{/if}}
 </body>
 
