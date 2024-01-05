@@ -12,5 +12,5 @@
 Messaging platform that allows users to communicate with their networks via message groups and personal direct messages. This instant messengers signature feature is an AI chatbot that users can easily chat with and have exciting and full conversations.
 
 ## Wireframe
-![Wireframe](images/image.png)
+![Wireframe](./public/images/image.png)
 
