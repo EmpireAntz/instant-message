@@ -21,4 +21,11 @@ router.get('/profile', (req, res) => {
   
 })
 
+router.get('/search', (req, res) => {
+  if (req.session.logged_in) {
+    res.render('search', {logged_in: req.session.logged_in});
+    return;
+  }
+})
+
 module.exports = router;
