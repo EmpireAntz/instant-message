@@ -14,8 +14,9 @@
     <header>
       <nav>
         {{#if logged_in}}
+        <a href="/profile">Home</a>
+        <a href="/search">Search</a>
         <button class="no-button" id="logout">logout</button>
-        <button class="no-button" id="search">search</button>
         {{else}}
         <a href="/login">login</a>
         {{/if}}
