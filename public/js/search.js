@@ -30,8 +30,44 @@ async function searchUserByEmail(email) {
     if (response.ok) {
       const user = await response.json();
       console.log('User found:', user);
-      // Here you could update the DOM with the user information
-      // For example: document.getElementById('user-info').textContent = JSON.stringify(user, null, 2);
+    
+      // Remove the old card if it exists
+      const oldCard = document.querySelector('.user-card');
+      if (oldCard) {
+        oldCard.remove();
+      }
+    
+      // Create a new card element
+      const card = document.createElement('div');
+      card.classList.add('user-card');
+    
+      // Update the card's content with the user's information
+      card.innerHTML = `
+        <h2>${user.name}</h2>
+        <p>Email: ${user.email}</p>
+        <button id="addBtn">Add</button>
+        <!-- Add more user information as needed -->
+        <!-- You can also add styling to the card using CSS -->
+        <style>
+          .user-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+          }
+        </style>
+      `;
+    
+      // Append the card to a container element in the DOM
+      const container = document.getElementById('user-container');
+      container.appendChild(card);
+      document.getElementById("addBtn").addEventListener("click", function() {
+        // Get the searched email
+        console.log('BUTTON');
+        var searchedEmail = document.getElementById('user-search').value;
+      
+        // Add the searched email to the friends list
+        addFriend(searchedEmail);
+      });
     } else {
       console.log('User not found');
       // Update the DOM to show that the user was not found
@@ -45,3 +81,9 @@ async function searchUserByEmail(email) {
 }
 
 
+// Function to add the searched email to the friends list
+function addFriend(email) {
+  console.log('tis working')
+  // Add the email to the friends list
+  // Your implementation here
+}
