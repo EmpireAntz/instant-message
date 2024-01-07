@@ -94,4 +94,34 @@ router.get('/searchByEmail', async (req, res) => {
   }
 });
 
+router.post('/addFriend', async (req, res) => {
+  const currentUserId = req.session.user_id; // Get the current user's ID from the session
+  const friendEmail = req.body.friendEmail; // Get the friend's email from the request body
+
+  try {
+    // Find the friend user by email
+    const friend = await User.findOne({ where: { email: friendEmail } });
+    if (!friend) {
+      return res.status(404).json({ message: 'Friend not found' });
+    }
+
+    // Find the current user by ID
+    const currentUser = await User.findByPk(currentUserId);
+    if (!currentUser) {
+      return res.status(404).json({ message: 'Current user not found' });
+    }
+
+    const currentFriendsList = new Set(currentUser.friendsList || []);
+    currentFriendsList.add(friend.id); // Add the friend's ID
+
+    // Update the currentUser's friendsList and save it
+    currentUser.friendsList = Array.from(currentFriendsList);
+    await currentUser.save();
+    
+    res.json({ message: 'Friend added successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error adding friend', error: error.message });
+  }
+});
+
 module.exports = router;
