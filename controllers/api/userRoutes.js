@@ -64,4 +64,34 @@ router.post('/search', (req, res) => {
   }
 });
 
+// GET route to search for a user by email
+router.get('/searchByEmail', async (req, res) => {
+  // Obtain the email from the query string
+  const { email } = req.query;
+
+  // Ensure that the email is provided
+  if (!email) {
+    return res.status(400).json({ message: 'Email query parameter is required.' });
+  }
+
+  try {
+    // Use Sequelize's findOne method to search for the user by email
+    const user = await User.findOne({
+      where: { email: email },
+      attributes: { exclude: ['password'] } // Exclude the password from the result
+    });
+
+    if (!user) {
+      // If the user is not found, send a 404 response
+      res.status(404).json({ message: 'User not found.' });
+    } else {
+      // If the user is found, send back the user information
+      res.json(user);
+    }
+  } catch (error) {
+    // If there's an error, send a 500 response
+    res.status(500).json({ message: 'Error searching for user.', error: error.message });
+  }
+});
+
 module.exports = router;
