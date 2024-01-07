@@ -35,10 +35,6 @@ User.init(
         len: [8],
       },
     },
-    friendsList: {
-      type: DataTypes.JSON,
-      allowNull: true,
-    }
   },
   {
     hooks: {
@@ -59,4 +55,4 @@ User.init(
   }
 );
 
-module.exports = User;
+module.exports =  User;
