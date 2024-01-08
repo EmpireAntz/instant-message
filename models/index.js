@@ -1,13 +1,7 @@
 const User = require('./User');
-const UserFriends = require('./userFriends'); // Import the UserFriends model
-
-// Set up the relationships
-User.belongsToMany(User, {
-  as: 'Friends',
-  through: UserFriends,
-  foreignKey: 'userId',
-  otherKey: 'friendId'
-});
+const Chat = require('./chat');
+const UserFriend = require('./UserFriend');
+const Message = require('./Message');
 
 // Export the models
-module.exports = { User, UserFriends };
+module.exports = { User, Chat, UserFriend, Message };
