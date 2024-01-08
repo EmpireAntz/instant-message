@@ -28,4 +28,11 @@ router.get('/search', (req, res) => {
   }
 })
 
+router.get('/messages', (req, res) => {
+  if (req.session.logged_in) {
+    res.render('messages', {logged_in: req.session.logged_in});
+    return;
+  }
+})
+
 module.exports = router;

@@ -64,6 +64,12 @@ router.post('/search', (req, res) => {
   }
 });
 
+router.post('/messages', (req, res) => {
+  if (req.session.logged_in) {
+  res.redirect('messages');
+  }
+});
+
 // GET route to search for a user by email
 router.get('/searchByEmail', async (req, res) => {
   // Obtain the email from the query string
