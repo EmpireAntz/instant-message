@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, UserFriends } = require('../../models');
 
 router.post('/', async (req, res) => {
   try {
@@ -95,31 +95,41 @@ router.get('/searchByEmail', async (req, res) => {
 });
 
 router.post('/addFriend', async (req, res) => {
-  const currentUserId = req.session.user_id; // Get the current user's ID from the session
-  const friendEmail = req.body.friendEmail; // Get the friend's email from the request body
+  const currentUserId = req.session.user_id;
+  const friendEmail = req.body.friendEmail;
 
   try {
-    // Find the friend user by email
     const friend = await User.findOne({ where: { email: friendEmail } });
     if (!friend) {
       return res.status(404).json({ message: 'Friend not found' });
     }
 
-    // Find the current user by ID
-    const currentUser = await User.findByPk(currentUserId);
-    if (!currentUser) {
-      return res.status(404).json({ message: 'Current user not found' });
+    // Prevent adding oneself as a friend
+    if (currentUserId === friend.id) {
+      return res.status(400).json({ message: 'You cannot add yourself as a friend' });
     }
 
-    const currentFriendsList = new Set(currentUser.friendsList || []);
-    currentFriendsList.add(friend.id); // Add the friend's ID
+    // Check if the friendship already exists
+    const existingFriendship = await UserFriends.findOne({
+      where: {
+        userId: currentUserId,
+        friendId: friend.id
+      }
+    });
 
-    // Update the currentUser's friendsList and save it
-    currentUser.friendsList = Array.from(currentFriendsList);
-    await currentUser.save();
-    
+    if (existingFriendship) {
+      return res.status(400).json({ message: 'You are already friends' });
+    }
+
+    // Create the new friendship
+    await UserFriends.create({
+      userId: currentUserId,
+      friendId: friend.id
+    });
+
     res.json({ message: 'Friend added successfully' });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Error adding friend', error: error.message });
   }
 });

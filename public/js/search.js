@@ -82,29 +82,27 @@ async function searchUserByEmail(email) {
 
 
 // Function to add the searched email to the friends list
-async function addFriend(email) {
+async function addFriend(friendEmail) {
   try {
-    // Make a POST request to your server endpoint for adding a friend
-    // Replace `/api/users/addFriend` with your actual endpoint
     const response = await fetch('/api/users/addFriend', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Include any other headers your API needs, like authorization tokens
+        // Add any needed headers like authorization tokens
       },
-      body: JSON.stringify({ friendEmail: email }) // Assuming your API expects the friend's email
+      body: JSON.stringify({ friendEmail })
     });
 
-    // Check if the request was successful
     if (response.ok) {
-      console.log('Friend added successfully');
-      // Optionally, update the UI to reflect the addition
+      const result = await response.json();
+      console.log(result.message);
+      // Update the UI to show the new friend
     } else {
-      console.error('Failed to add friend. Status:', response.status);
-      // Optionally, handle errors in the UI
+      console.error('Failed to add friend:', response.statusText);
+      // Handle errors in the UI
     }
   } catch (error) {
     console.error('Error adding friend:', error);
-    // Optionally, handle exceptions in the UI
+    // Handle errors in the UI
   }
 }
