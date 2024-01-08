@@ -19,15 +19,15 @@ UserFriend.init({
     allowNull: false,
     references: {
       model: User,
-      key: 'ID',
+      key: 'id',
     },
   },
   friendID: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Chat,
-      key: 'ID',
+      model: User,
+      key: 'id',
     },
   },
 },
