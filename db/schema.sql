@@ -1,4 +1,2 @@
-DROP DATABASE IF EXISTS db_name;
-CREATE DATABASE db_name;
-
-USE db_name;
+DROP DATABASE IF EXISTS instant_message;
+CREATE DATABASE instant_message;
