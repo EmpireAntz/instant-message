@@ -102,9 +102,8 @@ router.get('/searchByEmail', async (req, res) => {
 
 router.post('/addFriend', async (req, res) => {
   const currentUserId = req.session.user_id;
-  console.log(currentUserId)
   const friendEmail = req.body.friendEmail;
-  console.log(friendEmail)
+  
 
   try {
     const friend = await User.findOne({ where: { email: friendEmail } });
@@ -152,6 +151,33 @@ router.post('/addFriend', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error adding friend', error});
+  }
+});
+
+router.get('/friends/:userID', async (req, res) => {
+  console.log("bhwbhjsfdgbhjdsfgjbhdsfgjbndsgfjbndgsjbn")
+  try {
+    const { userID } = req.params;
+    console.log(userID)
+    // Execute the Sequelize query
+    const friendInfo = await UserFriend.findAll({
+      where: { userID },
+      include: { model: User, attributes: ['friendID', 'email'] },
+    });
+    console.log(friendInfo)
+
+    // Extract the friendID and email from the friendInfo array
+    const friendData = friendInfo.map((friend) => ({
+      friendID: friend.User.friendID,
+      email: friend.User.email,
+    }));
+    console.log(friendData)
+
+    // Return the friend data as the response
+    res.json(friendData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
