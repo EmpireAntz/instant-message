@@ -9,3 +9,16 @@ fetch('/api/users/friends/:' + userID)
   .catch(error => {
     console.error(error);
   });
+// Functionality for changing profile avatar bear 
+var imageIndex = 0;
+var images = ["/images/purple-bear.jpg", "/images/pink-bear.jpg", "/images/green-bear.jpg", "/images/blue-bear.jpg"];
+
+document.getElementById("currentImage").addEventListener("click", changeImage);
+
+function changeImage() {
+  var image = document.getElementById("currentImage");
+  imageIndex = (imageIndex + 1) % images.length;
+  
+  image.src = images[imageIndex];
+}
+
