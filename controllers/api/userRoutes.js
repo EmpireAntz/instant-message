@@ -218,13 +218,14 @@ router.get('/friends/', async (req, res) => {
       .then((userFriends) => {
         // userFriends will contain an array of objects with friendID and User model properties
         console.log('UserFriends:', userFriends[0].dataValues.Friends);
+        res.json(userFriends[0].dataValues.Friends);
       })
       .catch((error) => {
         console.error('Error fetching user friends:', error);
       });
 
     // Return the friend data as the response
-    res.json([]);
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
