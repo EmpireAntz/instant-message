@@ -1,6 +1,4 @@
-const userID = 1
-
-fetch('/api/users/friends/:' + userID)
+fetch('/api/users/friends')
   .then(response => response.json())
   .then(data => {
     // Use the returned user information
