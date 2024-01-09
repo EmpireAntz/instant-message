@@ -1,0 +1,15 @@
+SELECT userID, friendID FROM userfriend WHERE userID = 4 OR friendID = 4
+^ grab userID that doesnt match currentUserID
+
+
+SELECT userOneID, userTwoID FROM chat WHERE userOneID = {currentUser} OR userTwoID = {currentUser}
+all chats current user is associated to 
+
+make add friend make 2 friend instances going both ways
+
+
+SELECT u.id AS UserId, u.name AS UserName, f.id AS FriendId, f.name AS FriendName
+FROM User u
+JOIN UserFriend uf ON u.id = uf.userId
+JOIN User f ON uf.friendId = f.id
+WHERE u.id = 3 OR f.id = 3
