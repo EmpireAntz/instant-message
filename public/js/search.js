@@ -1,3 +1,28 @@
+// Function to add the searched email to the friends list
+async function addFriend(friendEmail) {
+  try {
+    const response = await fetch('/api/users/addFriend', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any needed headers like authorization tokens
+      },
+      body: JSON.stringify({ friendEmail })
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result.message);
+      // Update the UI to show the new friend
+    } else {
+      console.error('Failed to add friend:', response.statusText);
+      // Handle errors in the UI
+    }
+  } catch (error) {
+    console.error('Error adding friend:', error);
+    // Handle errors in the UI
+  }
+}
 
 // Get the form element
 const form = document.querySelector('.search-form');
@@ -81,28 +106,3 @@ async function searchUserByEmail(email) {
 }
 
 
-// Function to add the searched email to the friends list
-async function addFriend(friendEmail) {
-  try {
-    const response = await fetch('/api/users/addFriend', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // Add any needed headers like authorization tokens
-      },
-      body: JSON.stringify({ friendEmail })
-    });
-
-    if (response.ok) {
-      const result = await response.json();
-      console.log(result.message);
-      // Update the UI to show the new friend
-    } else {
-      console.error('Failed to add friend:', response.statusText);
-      // Handle errors in the UI
-    }
-  } catch (error) {
-    console.error('Error adding friend:', error);
-    // Handle errors in the UI
-  }
-}

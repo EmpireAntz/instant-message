@@ -18,7 +18,7 @@ Message.init({
     allowNull: false,
     references: {
       model: User,
-      key: 'ID',
+      key: 'id',
     },
   },
   chatID: {
@@ -26,7 +26,7 @@ Message.init({
     allowNull: false,
     references: {
       model: Chat,
-      key: 'ID',
+      key: 'id',
     },
   },
   messageText: {
