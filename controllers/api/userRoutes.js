@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, UserFriend, Chat, Message } = require('../../models');
+const Sequelize = require('sequelize');
 
 router.post('/', async (req, res) => {
   try {
@@ -39,7 +40,7 @@ router.post('/login', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      
+
       res.redirect('/profile');
     });
 
@@ -60,13 +61,13 @@ router.post('/logout', (req, res) => {
 
 router.post('/search', (req, res) => {
   if (req.session.logged_in) {
-  res.redirect('search');
+    res.redirect('search');
   }
 });
 
 router.post('/messages', (req, res) => {
   if (req.session.logged_in) {
-  res.redirect('messages');
+    res.redirect('messages');
   }
 });
 
@@ -102,9 +103,8 @@ router.get('/searchByEmail', async (req, res) => {
 
 router.post('/addFriend', async (req, res) => {
   const currentUserId = req.session.user_id;
-  console.log(currentUserId)
   const friendEmail = req.body.friendEmail;
-  console.log(friendEmail)
+
 
   try {
     const friend = await User.findOne({ where: { email: friendEmail } });
@@ -141,17 +141,93 @@ router.post('/addFriend', async (req, res) => {
       userID: currentUserId,
       friendID: friend.id
     })
-    .then((friend) => {
-      console.log('Friend relationship created successfully:', friend);
-    })
-    .catch((error) => {
-      console.error('Error creating friend relationship:', error);
-    });
+      .then((friend) => {
+        console.log('Friend relationship created successfully:', friend);
+      })
+      .catch((error) => {
+        console.error('Error creating friend relationship:', error);
+      });
 
     res.json({ message: 'Friend added successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error adding friend', error});
+    res.status(500).json({ message: 'Error adding friend', error });
+  }
+});
+
+router.get('/friends/', async (req, res) => {
+  console.log("bhwbhjsfdgbhjdsfgjbhdsfgjbndsgfjbndgsjbn")
+  try {
+    // const { userID } = req.params;
+    const userID = req.session.user_id;
+    console.log('userID:' + userID)
+    // Execute the Sequelize query
+    // const friendInfo = await UserFriend.findAll({
+      //   where: { userID },
+    //   include: { model: User, attributes: ['friendID', 'email'] },
+    // });
+    // console.log(friendInfo)
+    
+    // Extract the friendID and email from the friendInfo array
+    // const friendData = friendInfo.map((friend) => ({
+    //   friendID: friend.User.friendID,
+    //   email: friend.User.email,
+    // }));
+    // console.log(friendData)
+    
+    // const { Op } = Sequelize;
+    // UserFriend.findAll({
+    //   attributes: ['userID', 'friendID'],
+    //   where: {
+    //     [Op.or]: [
+    //       { userID: userID },
+    //       { friendID: userID },
+    //     ]
+    //   }
+    // }).then(friendships => {
+
+    //   friendships.forEach(f => {
+    //     const friendId = f.userID != userID ? f.userID : f.friendID;
+    //     console.log(friendId)
+    //     // User.findOne()...
+    //   })
+      
+    // })
+  if(!userID)
+  {
+    return res.json([]);
+  }
+    User.findAll({
+      attributes: ['id', 'name'],
+      include: [
+        {
+          model: User,
+          as: "Friends",
+          // include: [
+          //   {
+          //     model: User,
+              attributes: ['id', 'name'],
+          //   }
+          // ]
+        },
+      ],
+      where: {
+        id: userID
+      }
+    })
+      .then((userFriends) => {
+        // userFriends will contain an array of objects with friendID and User model properties
+        console.log('UserFriends:', userFriends[0].dataValues.Friends);
+      })
+      .catch((error) => {
+        console.error('Error fetching user friends:', error);
+      });
+
+    // Return the friend data as the response
+    res.json([]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 

@@ -74,10 +74,13 @@ async function searchUserByEmail(email) {
         <!-- Add more user information as needed -->
         <!-- You can also add styling to the card using CSS -->
         <style>
-          .user-card {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
+        .user-card {
+          background-color: #b24df1;
+          padding: 10px;
+          border: 5px solid-black;
+          border-radius: 20px;
+          margin-bottom: 10px;
+      }
           }
         </style>
       `;
@@ -87,7 +90,6 @@ async function searchUserByEmail(email) {
       container.appendChild(card);
       document.getElementById("addBtn").addEventListener("click", function() {
         // Get the searched email
-        console.log('BUTTON');
         var searchedEmail = document.getElementById('user-search').value;
       
         // Add the searched email to the friends list
