@@ -35,6 +35,7 @@ Chat.init({
   timestamps: false,
   freezeTableName: true,
   underscored: false,
+  modelName: 'chat'
 });
 
 module.exports = Chat;

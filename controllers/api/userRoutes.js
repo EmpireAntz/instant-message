@@ -138,8 +138,8 @@ router.post('/addFriend', async (req, res) => {
     console.log(friend.id)
 
     UserFriend.create({
-      userID: currentUserId,
-      friendID: friend.id
+      userId: currentUserId,
+      friendId: friend.id
     })
       .then((friend) => {
         console.log('Friend relationship created successfully:', friend);
@@ -158,57 +158,22 @@ router.post('/addFriend', async (req, res) => {
 router.get('/friends/', async (req, res) => {
   console.log("bhwbhjsfdgbhjdsfgjbhdsfgjbndsgfjbndgsjbn")
   try {
-    // const { userID } = req.params;
     const userID = req.session.user_id;
     console.log('userID:' + userID)
-    // Execute the Sequelize query
-    // const friendInfo = await UserFriend.findAll({
-      //   where: { userID },
-    //   include: { model: User, attributes: ['friendID', 'email'] },
-    // });
-    // console.log(friendInfo)
     
-    // Extract the friendID and email from the friendInfo array
-    // const friendData = friendInfo.map((friend) => ({
-    //   friendID: friend.User.friendID,
-    //   email: friend.User.email,
-    // }));
-    // console.log(friendData)
-    
-    // const { Op } = Sequelize;
-    // UserFriend.findAll({
-    //   attributes: ['userID', 'friendID'],
-    //   where: {
-    //     [Op.or]: [
-    //       { userID: userID },
-    //       { friendID: userID },
-    //     ]
-    //   }
-    // }).then(friendships => {
-
-    //   friendships.forEach(f => {
-    //     const friendId = f.userID != userID ? f.userID : f.friendID;
-    //     console.log(friendId)
-    //     // User.findOne()...
-    //   })
-      
-    // })
   if(!userID)
   {
-    return res.json([]);
+    //return res.json([]);
   }
     User.findAll({
       attributes: ['id', 'name'],
       include: [
         {
           model: User,
-          as: "Friends",
-          // include: [
-          //   {
-          //     model: User,
+          as: "friends",
+          
               attributes: ['id', 'name'],
-          //   }
-          // ]
+          
         },
       ],
       where: {
@@ -217,8 +182,9 @@ router.get('/friends/', async (req, res) => {
     })
       .then((userFriends) => {
         // userFriends will contain an array of objects with friendID and User model properties
-        console.log('UserFriends:', userFriends[0].dataValues.Friends);
-        res.json(userFriends[0].dataValues.Friends);
+        console.log(userFriends)
+        console.log('userfriends:', userFriends[0].dataValues.friends);
+        res.json(userFriends[0].dataValues.friends);
       })
       .catch((error) => {
         console.error('Error fetching user friends:', error);
