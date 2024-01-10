@@ -202,7 +202,7 @@ router.get('/friends/', async (req, res) => {
       include: [
         {
           model: User,
-          as: "Friends",
+          as: "friends",
           // include: [
           //   {
           //     model: User,

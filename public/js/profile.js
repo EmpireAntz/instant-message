@@ -8,11 +8,19 @@ fetch('/api/users/friends')
       console.log(data[i].name);
       const card = document.createElement('div');
       card.classList.add('user-card');
-    
+
       // Update the card's content with the user's information
       card.innerHTML = `
-        <h2>${data[i].name}</h2>
-        <a class="font-styling" href="/messages">Chat now!</a>
+         <div class="row">
+          <div class="col-12 col-md-6 col-lg-4 g-4">
+            <div class="card p-2">
+              <div class="card-body">
+                  <h2>${data[i].name}</h2>
+                 <a class="chat-styling" href="/messages">Chat now!</a>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- Add more user information as needed -->
         <!-- You can also add styling to the card using CSS -->
         <style>
@@ -26,7 +34,7 @@ fetch('/api/users/friends')
           }
         </style>
       `;
-    
+
       // Append the card to a container element in the DOM
       const container = document.getElementById('friends-container');
       container.appendChild(card);
@@ -36,7 +44,7 @@ fetch('/api/users/friends')
     console.error(error);
   });
 
-
+  
 // Functionality for changing profile avatar bear 
 var imageIndex = 0;
 var images = ["/images/purple-bear.jpg", "/images/pink-bear.jpg", "/images/green-bear.jpg", "/images/blue-bear.jpg"];
@@ -46,7 +54,7 @@ document.getElementById("currentImage").addEventListener("click", changeImage);
 function changeImage() {
   var image = document.getElementById("currentImage");
   imageIndex = (imageIndex + 1) % images.length;
-  
+
   image.src = images[imageIndex];
 }
 

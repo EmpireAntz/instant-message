@@ -18,7 +18,7 @@ UserFriend.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: User,
+      model: 'user',
       key: 'id',
     },
   },
@@ -26,7 +26,7 @@ UserFriend.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: User,
+      model: 'user',
       key: 'id',
     },
   },
@@ -36,6 +36,7 @@ UserFriend.init({
   timestamps: false,
   freezeTableName: true,
   underscored: false,
+  modelName: "friendships"
 });
 
 module.exports = UserFriend;

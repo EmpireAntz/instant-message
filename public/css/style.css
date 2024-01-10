@@ -33,11 +33,25 @@ h1 {
     color: #8312d4;
 }
 
+/* Style the UserNames in h2 */
+h2 {
+    font-size: 25px;
+    font-family: 'Salsa', cursive;
+    color: #000000;
+}
+
 /* Style other major headings */
 .font-styling {
     font-size: 25px;
     font-family: 'Salsa', cursive;
     color: #8312d4;
+}
+
+/* Style Chat-Now Heading*/
+.chat-styling {
+    font-size: 20px;
+    font-family: 'Salsa', cursive;
+    color: #000000;
 }
 
 /* Style the chat text */
