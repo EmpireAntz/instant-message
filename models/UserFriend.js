@@ -8,35 +8,14 @@ class UserFriend extends Model {
 }
 
 UserFriend.init({
-  ID: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  userID: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'user',
-      key: 'id',
-    },
-  },
-  friendID: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'user',
-      key: 'id',
-    },
-  },
+
 },
 {
   sequelize,
   timestamps: false,
   freezeTableName: true,
   underscored: false,
-  modelName: "friendships"
+  modelName:"friendships"
 });
 
 module.exports = UserFriend;
