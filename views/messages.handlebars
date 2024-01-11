@@ -1,24 +1,3 @@
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        .message-input {
-            width: 100%;
-            height: 80px;
-        }
-
-        .message-submit {
-            margin-top: 10px;
-        }
-
-        .message-card {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #b319f4;
-            border-radius: 5px;
-        }
-    </style>
-
-
 <div class="container">
     <h2>Convo with {{friend.name}}</h2>
     <div id="messageBoard">
@@ -30,10 +9,9 @@
             <p>no messies</p>
         {{/if}}
     </div>
-    <form method="POST">
+    <form id='form'method="POST">
         <textarea id="messageInput" name="messageText" class="message-input form-control" placeholder="Type your message..."></textarea>
         <button id="submitMessage" class="message-submit btn btn-primary" type="submit">Submit</button>
     </form>
 </div>
 
-<!--<script src="/js/messages.js"></script> -->
