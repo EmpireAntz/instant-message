@@ -16,7 +16,7 @@ fetch('/api/users/friends')
             <div class="card p-2">
               <div class="card-body">
                   <h2>${data[i].name}</h2>
-                 <a class="chat-styling" href="/messages">Chat now!</a>
+        <a class="font-styling" href="/messages/${data[i].friendships.friendshipId}">Chat now!</a>
               </div>
             </div>
           </div>
@@ -30,7 +30,6 @@ fetch('/api/users/friends')
           border: 5px solid-black;
           border-radius: 20px;
           margin-bottom: 10px;
-      }
           }
         </style>
       `;

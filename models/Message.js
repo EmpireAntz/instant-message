@@ -7,13 +7,13 @@ class Message extends Model {
 }
 
 Message.init({
-  ID: {
+  id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
   },
-  userID: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -21,14 +21,11 @@ Message.init({
       key: 'id',
     },
   },
-  chatID: {
-    type: DataTypes.INTEGER,
+  userName: DataTypes.STRING,
+  chatId: {
+    type: DataTypes.STRING,
     allowNull: false,
-    references: {
-      model: Chat,
-      key: 'id',
     },
-  },
   messageText: {
     type: DataTypes.STRING(2000),
     allowNull: false,

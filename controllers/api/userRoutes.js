@@ -9,6 +9,7 @@ router.post('/', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
+      req.session.user_name = userData.name;
 
       res.status(200).json(userData);
     });
@@ -40,6 +41,7 @@ router.post('/login', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
+      req.session.user_name = userData.name
 
       res.redirect('/profile');
     });
@@ -104,7 +106,7 @@ router.get('/searchByEmail', async (req, res) => {
 router.post('/addFriend', async (req, res) => {
   const currentUserId = req.session.user_id;
   const friendEmail = req.body.friendEmail;
-
+  
 
   try {
     const friend = await User.findOne({ where: { email: friendEmail } });
@@ -118,7 +120,7 @@ router.post('/addFriend', async (req, res) => {
     if (currentUserId === friend.id) {
       return res.status(400).json({ message: 'You cannot add yourself as a friend' });
     }
-
+    
     // Check if the friendship already exists
     const existingFriendship = await UserFriend.findOne({
       where: {
@@ -132,17 +134,29 @@ router.post('/addFriend', async (req, res) => {
     }
 
     // Create the new friendship
+    const friendshipId = [currentUserId, friend.id].sort().join('');
+    
+    // Create the new friendship
+    
     console.log("-------------------------")
     console.log(currentUserId)
     console.log("-------------------------")
     console.log(friend.id)
-
+    console.log("-------------------------")
+    console.log(friendshipId)
+    
     UserFriend.create({
       userId: currentUserId,
-      friendId: friend.id
+      friendId: friend.id,
+      friendshipId: friendshipId
     })
-      .then((friend) => {
-        console.log('Friend relationship created successfully:', friend);
+      .then((friendship) => {
+        UserFriend.create({
+          userId: friend.id,
+          friendId: currentUserId,
+          friendshipId: friendshipId
+        })
+        console.log('Friend relationship created successfully:', friendship, friendshipId);
       })
       .catch((error) => {
         console.error('Error creating friend relationship:', error);
@@ -158,7 +172,7 @@ router.post('/addFriend', async (req, res) => {
 router.get('/friends/', async (req, res) => {
   console.log("bhwbhjsfdgbhjdsfgjbhdsfgjbndsgfjbndgsjbn")
   try {
-    const userID = req.session.user_id;
+    const userID = req.session.user_id || 1;
     console.log('userID:' + userID)
     
   if(!userID)
@@ -166,14 +180,16 @@ router.get('/friends/', async (req, res) => {
     //return res.json([]);
   }
     User.findAll({
-      attributes: ['id', 'name'],
+      attributes: ['id', 'name',],
       include: [
         {
           model: User,
-          as: "friends",
-              attributes: ['id', 'name'],
-          
+          as:'friends',
+          attributes: [
+            'id', 'name',
+          ]
         },
+
       ],
       where: {
         id: userID
@@ -197,4 +213,31 @@ router.get('/friends/', async (req, res) => {
   }
 });
 
+router.get('/chat/:userId', (req, res) => {
+  UserFriend.findAll().then(resp => res.json(resp))
+  // const userId = req.session.user_id;
+  // const friendId = req.params.userId
+  // Chat.findOne({
+  //   attributes: ['ID', 'userOneID', 'userTwoID'],
+  //   where: {
+  //     userOneID: userId,
+  //     userTwoID: friendId
+  //   }
+  // })
+  // .then((chat) => {
+  //   console.log(chat)
+  //   res.json(chat)
+  // })
+}),
 module.exports = router;
+
+// Chat.create({
+//   userOneID: currentUserId,
+//   userTwoID: friend.id
+// })
+//   .then((message) => {
+//     console.log('chat created successfully:', message);
+//   })
+//   .catch((error) => {
+//     console.error('Error creating chat:', error);
+//   });
