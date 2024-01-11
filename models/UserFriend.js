@@ -14,6 +14,10 @@ UserFriend.init({
     primaryKey: true,
     autoIncrement: true,
   },
+  friendshipId: {
+    type: DataTypes.STRING, // or any other appropriate data type
+    allowNull: false,
+  },
 },
 {
   sequelize,

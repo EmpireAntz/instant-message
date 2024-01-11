@@ -19,23 +19,12 @@
     </style>
 
 
-<div class="card">
-    <div class="card-header">
-        <h5 class="card-title">${data[i].name}</h5>
-        <p class="card-text">Timestamp</p>
-    </div>
-
-    <div class="card-body">
-        <p class="card-text">User messsage data</p>
-    </div>
-</div>
-
 <div class="container">
-    <h2>Convo</h2>
+    <h2>Convo with {{friend.name}}</h2>
     <div id="messageBoard">
         {{#if messages}}
             {{#each messages}}
-                <p>{{messageText}}</p>
+                <p>{{userName}}: {{messageText}}</p>
             {{/each}}
         {{else}}
             <p>no messies</p>
