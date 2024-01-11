@@ -61,6 +61,7 @@ img {
     border-radius: 50%;
 }
 
+
 /*Fixes issue with mobile view*/
 .form-fix {
     padding-bottom: 40px;
@@ -86,6 +87,23 @@ img {
 /* Change the background color to a darker shade of purple on hover */
 .btn-primary:hover {
     background-color: #8312d4;
+}
+
+
+.message-input {
+    width: 100%;
+    height: 80px;
+}
+
+.message-submit {
+    margin-top: 10px;
+}
+
+.message-card {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #b319f4;
+    border-radius: 5px;
 }
 
 
