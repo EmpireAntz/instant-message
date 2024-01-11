@@ -1,5 +1,11 @@
+<div class="text-center">
+  <h1>Convo</h1>
+</div>
+
+
+
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 text-center">
     <h2 class="font-styling">Login</h2>
 
     <form class="form login-form">
@@ -9,34 +15,60 @@
       </div>
       <div class="form-group">
         <label for="password-login"></label>
-        <input class="form-input" type="password" id="password-login" placeholder="password"/>
+        <input class="form-input" type="password" id="password-login" placeholder="password" />
       </div>
       <div class="form-group">
         <button class="btn btn-primary" type="submit">Login</button>
       </div>
     </form>
   </div>
-  <div class="col-md-6">
-    <h2 class="font-styling" >Signup</h2>
+
+  {{!-- <div class="col-md-6 text-center">
+    <h2 class="font-styling">Signup</h2>
 
     <form class="form signup-form">
       <div class="form-group">
         <label for="name-signup"></label>
-        <input class="form-input" type="text" id="name-signup" placeholder="name"/>
+        <input class="form-input" type="text" id="name-signup" placeholder="name" />
       </div>
       <div class="form-group">
         <label for="email-signup"></label>
-        <input class="form-input" type="text" id="email-signup" placeholder="email"/>
+        <input class="form-input" type="text" id="email-signup" placeholder="email" />
       </div>
       <div class="form-group">
         <label for="password-signup"></label>
-        <input class="form-input" type="password" id="password-signup" placeholder="password"/>
+        <input class="form-input" type="password" id="password-signup" placeholder="password" />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Signup</button>
+      </div>
+    </form>
+  </div> --}}
+
+<div class="col-md-6 text-center">
+    <h2 class="font-styling">Signup</h2>
+
+    <form class="form signup-form">
+      <div class="form-group">
+        <label for="name-signup"></label>
+        <input class="form-control" type="text" id="name-signup" placeholder="name" />
+      </div>
+      <div class="form-group">
+        <label for="email-signup"></label>
+        <input class="form-control" type="text" id="email-signup" placeholder="email" />
+      </div>
+      <div class="form-group">
+        <label for="password-signup"></label>
+        <input class="form-control" type="password" id="password-signup" placeholder="password" />
       </div>
       <div class="form-group">
         <button class="btn btn-primary" type="submit">Signup</button>
       </div>
     </form>
   </div>
+
+
+
 </div>
 
 <script src="./js/login.js"></script>
