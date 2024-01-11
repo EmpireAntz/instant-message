@@ -17,7 +17,7 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
-  console.log(req.session.logged_in)
+  // console.log(req.session.logged_in)
   res.render('profile', {logged_in: req.session.logged_in})
   
 })
@@ -30,7 +30,7 @@ router.get('/search', (req, res) => {
 })
 
 router.get('/messages/:chatId', async (req, res) => {
-  console.log('user_name',req.session.user_name)
+   // console.log('user_name',req.session.user_name)
   if (req.session.logged_in) {
     let friend;
    const messages = await Message.findAll({
@@ -67,7 +67,7 @@ router.get('/messages/:chatId', async (req, res) => {
 })
 router.post('/messages/:chatId', async (req, res) => {
   if (req.session.logged_in) {
-    console.log('user_name',req.session.user_name)
+    // console.log('user_name',req.session.user_name)
    // const friend = get the friend from friendship, then the inverse friendshipId
    await Message.create({
       userId: req.session.user_id,
