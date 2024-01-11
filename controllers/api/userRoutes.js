@@ -114,7 +114,7 @@ router.post('/addFriend', async (req, res) => {
       return res.status(404).json({ message: 'Friend not found' });
     }
 
-    console.log(friend)
+    // console.log(friend)
 
     // Prevent adding oneself as a friend
     if (currentUserId === friend.id) {
@@ -138,12 +138,12 @@ router.post('/addFriend', async (req, res) => {
     
     // Create the new friendship
     
-    console.log("-------------------------")
-    console.log(currentUserId)
-    console.log("-------------------------")
-    console.log(friend.id)
-    console.log("-------------------------")
-    console.log(friendshipId)
+    // console.log("-------------------------")
+    // console.log(currentUserId)
+    // console.log("-------------------------")
+    // console.log(friend.id)
+    // console.log("-------------------------")
+    // console.log(friendshipId)
     
     UserFriend.create({
       userId: currentUserId,
@@ -170,10 +170,10 @@ router.post('/addFriend', async (req, res) => {
 });
 
 router.get('/friends/', async (req, res) => {
-  console.log("bhwbhjsfdgbhjdsfgjbhdsfgjbndsgfjbndgsjbn")
+  //console.log("bhwbhjsfdgbhjdsfgjbhdsfgjbndsgfjbndgsjbn")
   try {
     const userID = req.session.user_id || 1;
-    console.log('userID:' + userID)
+    //console.log('userID:' + userID)
     
   if(!userID)
   {
@@ -197,8 +197,8 @@ router.get('/friends/', async (req, res) => {
     })
       .then((userFriends) => {
         // userFriends will contain an array of objects with friendID and User model properties
-        console.log(userFriends)
-        console.log('userfriends:', userFriends[0].dataValues.friends);
+        // console.log(userFriends)
+        // console.log('userfriends:', userFriends[0].dataValues.friends);
         res.json(userFriends[0].dataValues.friends);
       })
       .catch((error) => {
