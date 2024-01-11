@@ -17,6 +17,11 @@ body::before {
     z-index: -1;
 }
 
+/* Style for forms*/
+.form {
+    padding-bottom: 50px;
+}
+
 /* Style the chat messages */
 .card {
     background-color: #b24df1;
@@ -31,6 +36,7 @@ h1 {
     font-size: 50px;
     font-family: 'Salsa', cursive;
     color: #8312d4;
+    padding-bottom: 30px;
 }
 
 /* Style other major headings */
@@ -61,3 +67,24 @@ img {
     }
 }
 
+
+.form-input {
+    width: 75%; /* Set the width to 100% */
+    padding: 10px; /* Add padding of 10 pixels */
+    border-radius: 5px; /* Add border radius of 5 pixels */
+    border: 1px solid #CED4DA; /* Add a border with light gray color */
+  }
+  
+  .btn-primary {
+    background-color: #1DB954; /* Set the background color to Spotify's green */
+    color: #FFFFFF; /* Set the text color to white */
+    padding: 10px 20px; /* Add padding of 10 pixels for the top/bottom and 20 pixels for the left/right */
+    border: none; /* Remove the border */
+    border-radius: 5px; /* Add border radius of 5 pixels */
+    cursor: pointer; /* Add a cursor pointer on hover */
+  }
+  
+  .btn-primary:hover {
+    background-color: #17A048; /* Change the background color to a darker shade of green on hover */
+  }
+</style>
