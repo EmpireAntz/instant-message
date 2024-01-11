@@ -12,7 +12,7 @@ fetch('/api/users/friends')
       // Update the card's content with the user's information
       card.innerHTML = `
         <h2>${data[i].name}</h2>
-        <a class="font-styling" href="/messages">Chat now!</a>
+        <a class="font-styling" href="/messages/${data[i].friendships.id}">Chat now!</a>
         <!-- Add more user information as needed -->
         <!-- You can also add styling to the card using CSS -->
         <style>

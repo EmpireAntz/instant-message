@@ -141,8 +141,12 @@ router.post('/addFriend', async (req, res) => {
       userId: currentUserId,
       friendId: friend.id
     })
-      .then((friend) => {
-        console.log('Friend relationship created successfully:', friend);
+      .then((friendship) => {
+        UserFriend.create({
+          userId: friend.id,
+          friendId: currentUserId
+        })
+        console.log('Friend relationship created successfully:', friendship);
       })
       .catch((error) => {
         console.error('Error creating friend relationship:', error);
@@ -158,7 +162,7 @@ router.post('/addFriend', async (req, res) => {
 router.get('/friends/', async (req, res) => {
   console.log("bhwbhjsfdgbhjdsfgjbhdsfgjbndsgfjbndgsjbn")
   try {
-    const userID = req.session.user_id;
+    const userID = req.session.user_id || 1;
     console.log('userID:' + userID)
     
   if(!userID)
@@ -170,11 +174,12 @@ router.get('/friends/', async (req, res) => {
       include: [
         {
           model: User,
-          as: "friends",
-          
-              attributes: ['id', 'name'],
-          
+          as:'friends',
+          attributes: [
+            'id', 'name'
+          ]
         },
+
       ],
       where: {
         id: userID
@@ -198,4 +203,31 @@ router.get('/friends/', async (req, res) => {
   }
 });
 
+router.get('/chat/:userId', (req, res) => {
+  UserFriend.findAll().then(resp => res.json(resp))
+  // const userId = req.session.user_id;
+  // const friendId = req.params.userId
+  // Chat.findOne({
+  //   attributes: ['ID', 'userOneID', 'userTwoID'],
+  //   where: {
+  //     userOneID: userId,
+  //     userTwoID: friendId
+  //   }
+  // })
+  // .then((chat) => {
+  //   console.log(chat)
+  //   res.json(chat)
+  // })
+}),
 module.exports = router;
+
+// Chat.create({
+//   userOneID: currentUserId,
+//   userTwoID: friend.id
+// })
+//   .then((message) => {
+//     console.log('chat created successfully:', message);
+//   })
+//   .catch((error) => {
+//     console.error('Error creating chat:', error);
+//   });
