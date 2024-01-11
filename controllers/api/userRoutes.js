@@ -9,6 +9,7 @@ router.post('/', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
+      req.session.user_name = userData.name;
 
       res.status(200).json(userData);
     });
@@ -40,6 +41,7 @@ router.post('/login', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
+      req.session.user_name = userData.name
 
       res.redirect('/profile');
     });
@@ -104,7 +106,7 @@ router.get('/searchByEmail', async (req, res) => {
 router.post('/addFriend', async (req, res) => {
   const currentUserId = req.session.user_id;
   const friendEmail = req.body.friendEmail;
-
+  
 
   try {
     const friend = await User.findOne({ where: { email: friendEmail } });
@@ -118,7 +120,7 @@ router.post('/addFriend', async (req, res) => {
     if (currentUserId === friend.id) {
       return res.status(400).json({ message: 'You cannot add yourself as a friend' });
     }
-
+    
     // Check if the friendship already exists
     const existingFriendship = await UserFriend.findOne({
       where: {
@@ -132,21 +134,29 @@ router.post('/addFriend', async (req, res) => {
     }
 
     // Create the new friendship
+    const friendshipId = [currentUserId, friend.id].sort().join('');
+    
+    // Create the new friendship
+    
     console.log("-------------------------")
     console.log(currentUserId)
     console.log("-------------------------")
     console.log(friend.id)
-
+    console.log("-------------------------")
+    console.log(friendshipId)
+    
     UserFriend.create({
       userId: currentUserId,
-      friendId: friend.id
+      friendId: friend.id,
+      friendshipId: friendshipId
     })
       .then((friendship) => {
         UserFriend.create({
           userId: friend.id,
-          friendId: currentUserId
+          friendId: currentUserId,
+          friendshipId: friendshipId
         })
-        console.log('Friend relationship created successfully:', friendship);
+        console.log('Friend relationship created successfully:', friendship, friendshipId);
       })
       .catch((error) => {
         console.error('Error creating friend relationship:', error);
@@ -170,13 +180,13 @@ router.get('/friends/', async (req, res) => {
     //return res.json([]);
   }
     User.findAll({
-      attributes: ['id', 'name'],
+      attributes: ['id', 'name',],
       include: [
         {
           model: User,
           as:'friends',
           attributes: [
-            'id', 'name'
+            'id', 'name',
           ]
         },
 

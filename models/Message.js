@@ -21,14 +21,11 @@ Message.init({
       key: 'id',
     },
   },
+  userName: DataTypes.STRING,
   chatId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
-    references: {
-      model: 'friendships',
-      key: 'id',
     },
-  },
   messageText: {
     type: DataTypes.STRING(2000),
     allowNull: false,
