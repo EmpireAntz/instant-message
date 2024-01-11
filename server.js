@@ -4,14 +4,17 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
+const http = require('http'); 
 
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
+const server = http.createServer(app); 
+const io = require('socket.io')(server);
+
 const PORT = process.env.PORT || 3001;
 
-// Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
 
 const sess = {
@@ -20,7 +23,7 @@ const sess = {
   // This IS essentially the session
   cookie: {
     // when the cookie will expire (in ms)
-    maxAge: 300000,
+    maxAge: 10000000,
     // prevents access through JS in the client
     httpOnly: true,
     // Server and Client will reject if not served from HTTPS
@@ -40,6 +43,19 @@ const sess = {
 
 app.use(session(sess));
 
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  // Example: On receiving a 'chat message' event from a client
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -51,5 +67,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  server.listen(PORT, () => console.log('Now listening'));
 });

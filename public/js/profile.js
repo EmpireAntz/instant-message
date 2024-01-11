@@ -8,24 +8,21 @@ fetch('/api/users/friends')
       // console.log(data[i].name);
       const card = document.createElement('div');
       card.classList.add('user-card');
-    
+
       // Update the card's content with the user's information
       card.innerHTML = `
-        <h2>${data[i].name}</h2>
-        <a class="font-styling" href="/messages/${data[i].friendships.friendshipId}">Chat now!</a>
-        <!-- Add more user information as needed -->
-        <!-- You can also add styling to the card using CSS -->
-        <style>
-        .user-card {
-          background-color: #b24df1;
-          padding: 10px;
-          border: 5px solid-black;
-          border-radius: 20px;
-          margin-bottom: 10px;
-          }
-        </style>
+      <div class="row">
+      <div class="col-12 col-md-6 col-lg-4 g-4">
+        <div class="card p-2">
+          <div class="card-body">
+              <h2>${data[i].name}</h2>
+            <a class="font-styling" href="/messages/${data[i].friendships.friendshipId}">Chat now!</a>
+          </div>
+        </div>
+      </div>
+    </div>
       `;
-    
+
       // Append the card to a container element in the DOM
       const container = document.getElementById('friends-container');
       container.appendChild(card);
@@ -45,7 +42,7 @@ document.getElementById("currentImage").addEventListener("click", changeImage);
 function changeImage() {
   var image = document.getElementById("currentImage");
   imageIndex = (imageIndex + 1) % images.length;
-  
+
   image.src = images[imageIndex];
 }
 
