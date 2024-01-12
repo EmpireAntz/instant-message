@@ -28,7 +28,7 @@ async function addFriend(friendEmail) {
 const form = document.querySelector('.search-form');
 
 // Add event listener to form submit event
-form.addEventListener('submit', function(event) {
+form.addEventListener('submit', function (event) {
   // Prevent the default form submission behavior
   event.preventDefault();
 
@@ -55,43 +55,39 @@ async function searchUserByEmail(email) {
     if (response.ok) {
       const user = await response.json();
       // console.log('User found:', user);
-    
+
       // Remove the old card if it exists
       const oldCard = document.querySelector('.user-card');
       if (oldCard) {
         oldCard.remove();
       }
-    
+
       // Create a new card element
       const card = document.createElement('div');
       card.classList.add('user-card');
-    
+
       // Update the card's content with the user's information
       card.innerHTML = `
-        <h2>${user.name}</h2>
-        <p>Email: ${user.email}</p>
-        <button id="addBtn">Add</button>
-        <!-- Add more user information as needed -->
-        <!-- You can also add styling to the card using CSS -->
-        <style>
-        .user-card {
-          background-color: #b24df1;
-          padding: 10px;
-          border: 5px solid-black;
-          border-radius: 20px;
-          margin-bottom: 10px;
-      }
-          }
-        </style>
+      <div class="row">
+        <div class="d-flex justify-content-center align-items-center" style="height: 30vh;">
+          <div class="card p-3">
+            <div class="card-body">
+              <h2>${user.name}</h2>
+              <p>Email: ${user.email}</p>
+              <button class="btn-primary"id="addBtn">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
       `;
-    
+
       // Append the card to a container element in the DOM
       const container = document.getElementById('user-container');
       container.appendChild(card);
-      document.getElementById("addBtn").addEventListener("click", function() {
+      document.getElementById("addBtn").addEventListener("click", function () {
         // Get the searched email
         var searchedEmail = document.getElementById('user-search').value;
-      
+
         // Add the searched email to the friends list
         addFriend(searchedEmail);
       });
@@ -107,4 +103,15 @@ async function searchUserByEmail(email) {
   }
 }
 
+// Functionality for changing profile avatar bear 
+var imageIndex = 0;
+var images = ["/images/purple-bear.jpg", "/images/pink-bear.jpg", "/images/green-bear.jpg", "/images/blue-bear.jpg"];
 
+document.getElementById("currentImage").addEventListener("click", changeImage);
+
+function changeImage() {
+  var image = document.getElementById("currentImage");
+  imageIndex = (imageIndex + 1) % images.length;
+
+  image.src = images[imageIndex];
+}
