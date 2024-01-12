@@ -61,10 +61,13 @@ img {
     border-radius: 50%;
 }
 
-
 /*Fixes issue with mobile view*/
 .form-fix {
     padding-bottom: 40px;
+}
+/*Fixes issues with mobile view*/
+.form {
+    padding-top: 50px;
 }
 
 .form-input {

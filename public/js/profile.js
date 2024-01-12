@@ -12,7 +12,7 @@ fetch('/api/users/friends')
       // Update the card's content with the user's information
       card.innerHTML = `
       <div class="row">
-      <div class="col-12 col-md-6 col-lg-4 g-4">
+      <div class="d-flex justify-content-center align-items-center" style="height: 30vh;">
         <div class="card p-2">
           <div class="card-body">
               <h2>${data[i].name}</h2>

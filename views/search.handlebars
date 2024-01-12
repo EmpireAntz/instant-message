@@ -1,17 +1,31 @@
-<div class="col-md-6">
-    <h2 class="font-styling">Search</h2>
+<div class="text-center">
+  <h1>Convo</h1>
+  <div id="imageContainer">
+    <img id="currentImage" src="/images/purple-bear.jpg" alt="Profile Icon">
+  </div>
+  <div class="username">
+    <!--Current users name god here 
+    <h2>{..??..}</h2>-->
+  </div>
+
+
+  <div class="d-flex justify-content-center align-items-center" style="height: 30vh;">
 
     <form class="form search-form">
       <div class="form-group">
-        <label for="user-search">Search user by e-mail:</label>
+        <label class="font-styling" for="user-search">Search user by e-mail:</label>
         <input class="form-input" type="text" id="user-search" />
       </div>
+      <br />
       <div class="form-group">
-        <button class="btn btn-primary" type="submit">Search</button>
+        <button class="btn-primary" type="submit">Search</button>
       </div>
     </form>
   </div>
 
+
   <div id="user-container"></div>
-  
-  <script src="./js/search.js"></script>
+
+</div>
+
+<script src="./js/search.js"></script>
