@@ -8,11 +8,12 @@ socket.on('connect', () => {
 fetch('/api/users/friends')
   .then(response => response.json())
   .then(data => {
+    console.log(data[0].name)
     for (let i = 0; i < data.length; i++) {
 
         document.getElementById('form').addEventListener('submit', sendMessage);
       
-        socket.emit('join room', `${data[i].friendships.friendshipId}`); // This should be dynamically assigned based on the chatId of the current room
+        socket.emit('join room', `${data[i].friendships.friendshipId}`); 
         socket.on('new message', (message) => {
             console.log('New message received:', message);
             appendMessage(message);
@@ -20,6 +21,7 @@ fetch('/api/users/friends')
           
           function appendMessage(message) {
             console.log('Appending message:', message);
+            console.log(message)
             const messageBoard = document.getElementById('messageBoard');
             if (messageBoard) {
               const messageElement = document.createElement('p');
@@ -38,7 +40,8 @@ fetch('/api/users/friends')
       
           socket.emit('chat message', {
             chatId: `${data[i].friendships.friendshipId}`,
-            messageText: messageText
+            messageText: messageText,
+            userName: data[i].name
           });
         }
     }
