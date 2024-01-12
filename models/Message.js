@@ -1,7 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection.js');
 const User = require('./User');
-const Chat = require('./chat.js');
 
 class Message extends Model {
 }
