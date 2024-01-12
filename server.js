@@ -46,12 +46,16 @@ app.use(session(sess));
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  // Example: On receiving a 'chat message' event from a client
+  socket.on('join room', (chatId) => {
+    console.log(`User joined room: ${chatId}`);
+    socket.join(chatId);
+  });
+  // When a user sends a chat message
   socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
+    // Broadcast the message to others in the room
+    io.to(msg.chatId).emit('new message', msg);
   });
 
-  // Handle disconnection
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });

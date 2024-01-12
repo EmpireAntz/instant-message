@@ -67,19 +67,28 @@ router.get('/messages/:chatId', async (req, res) => {
 })
 router.post('/messages/:chatId', async (req, res) => {
   if (req.session.logged_in) {
-    // console.log('user_name',req.session.user_name)
-   // const friend = get the friend from friendship, then the inverse friendshipId
-   await Message.create({
-      userId: req.session.user_id,
-      userName: req.session.user_name,
-      chatId: req.params.chatId,
-      messageText: req.body.messageText
-    })
+    try {
+      const newMessage = await Message.create({
+        userId: req.session.user_id,
+        userName: req.session.user_name,
+        chatId: req.params.chatId,
+        messageText: req.body.messageText
+      });
 
-    
-    res.redirect(`/messages/${req.params.chatId}`);
-    return;
+      // Emit an event to all clients in the same chat room except the sender
+      io.to(req.params.chatId).emit('new message', {
+        userId: req.session.user_id,
+        userName: req.session.user_name,
+        messageText: req.body.messageText
+      });
+      console.log(`Message sent to room ${req.params.chatId}`);
+      res.status(200).json(newMessage);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      res.status(500).json({ error: 'Error sending message' });
+    }
+  } else {
+    res.status(403).json({ error: 'Not logged in' });
   }
-})
-
+});
 module.exports = router;
