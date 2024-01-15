@@ -213,6 +213,50 @@ router.get('/friends/', async (req, res) => {
   }
 });
 
+router.get('/friendsroom/', async (req, res) => {
+  //console.log("bhwbhjsfdgbhjdsfgjbhdsfgjbndsgfjbndgsjbn")
+  try {
+    const userID = req.session.user_id || 1;
+    //console.log('userID:' + userID)
+    
+  if(!userID)
+  {
+    //return res.json([]);
+  }
+    User.findAll({
+      attributes: ['id', 'name',],
+      include: [
+        {
+          model: User,
+          as:'friends',
+          attributes: [
+            'id', 'name',
+          ]
+        },
+
+      ],
+      where: {
+        id: userID
+      }
+    })
+      .then((userFriends) => {
+        // userFriends will contain an array of objects with friendID and User model properties
+        // console.log(userFriends)
+        // console.log('userfriends:', userFriends[0].dataValues.friends);
+        res.json(userFriends);
+      })
+      .catch((error) => {
+        console.error('Error fetching user friends:', error);
+      });
+
+    // Return the friend data as the response
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 router.get('/chat/:userId', (req, res) => {
   UserFriend.findAll().then(resp => res.json(resp))
   // const userId = req.session.user_id;
