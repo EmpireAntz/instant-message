@@ -31,7 +31,7 @@ Convo is a messaging platform that allows users to communicate with their friend
 - mysql2
 - sequelize
 - Socket.io
-- Databases and through tables
+- Databases and through table
 
 ## Wireframe
 ![Wireframe](./public/images/image.png)
