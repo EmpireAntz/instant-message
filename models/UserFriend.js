@@ -14,7 +14,7 @@ UserFriend.init({
     autoIncrement: true,
   },
   friendshipId: {
-    type: DataTypes.STRING, // or any other appropriate data type
+    type: DataTypes.STRING,
     allowNull: false,
   },
 },

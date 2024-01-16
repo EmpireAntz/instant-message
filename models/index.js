@@ -7,5 +7,4 @@ User.belongsToMany(User, {through: {
     unique: false,
 }, as: 'friends', onDelete: 'CASCADE'})
 
-// Export the models
 module.exports = { User, UserFriend, Message };

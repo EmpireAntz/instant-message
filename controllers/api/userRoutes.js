@@ -114,8 +114,6 @@ router.post('/addFriend', async (req, res) => {
       return res.status(404).json({ message: 'Friend not found' });
     }
 
-    // console.log(friend)
-
     // Prevent adding oneself as a friend
     if (currentUserId === friend.id) {
       return res.status(400).json({ message: 'You cannot add yourself as a friend' });
@@ -135,15 +133,6 @@ router.post('/addFriend', async (req, res) => {
 
     // Create the new friendship
     const friendshipId = [currentUserId, friend.id].sort().join('');
-    
-    // Create the new friendship
-    
-    // console.log("-------------------------")
-    // console.log(currentUserId)
-    // console.log("-------------------------")
-    // console.log(friend.id)
-    // console.log("-------------------------")
-    // console.log(friendshipId)
     
     UserFriend.create({
       userId: currentUserId,
@@ -170,10 +159,8 @@ router.post('/addFriend', async (req, res) => {
 });
 
 router.get('/friends/', async (req, res) => {
-  //console.log("bhwbhjsfdgbhjdsfgjbhdsfgjbndsgfjbndgsjbn")
   try {
     const userID = req.session.user_id || 1;
-    //console.log('userID:' + userID)
     
   if(!userID)
   {
@@ -196,9 +183,6 @@ router.get('/friends/', async (req, res) => {
       }
     })
       .then((userFriends) => {
-        // userFriends will contain an array of objects with friendID and User model properties
-        // console.log(userFriends)
-        // console.log('userfriends:', userFriends[0].dataValues.friends);
         res.json(userFriends[0].dataValues.friends);
       })
       .catch((error) => {
@@ -250,31 +234,4 @@ router.get('/friendsroom/', async (req, res) => {
   }
 });
 
-router.get('/chat/:userId', (req, res) => {
-  UserFriend.findAll().then(resp => res.json(resp))
-  // const userId = req.session.user_id;
-  // const friendId = req.params.userId
-  // Chat.findOne({
-  //   attributes: ['ID', 'userOneID', 'userTwoID'],
-  //   where: {
-  //     userOneID: userId,
-  //     userTwoID: friendId
-  //   }
-  // })
-  // .then((chat) => {
-  //   console.log(chat)
-  //   res.json(chat)
-  // })
-}),
 module.exports = router;
-
-// Chat.create({
-//   userOneID: currentUserId,
-//   userTwoID: friend.id
-// })
-//   .then((message) => {
-//     console.log('chat created successfully:', message);
-//   })
-//   .catch((error) => {
-//     console.error('Error creating chat:', error);
-//   });
