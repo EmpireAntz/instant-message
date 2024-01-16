@@ -4,8 +4,6 @@ fetch('/api/users/friends')
   .then(data => {
     // Use the returned user information
     for (let i = 0; i < data.length; i++) {
-      // console.log(data[i]);
-      // console.log(data[i].name);
       const card = document.createElement('div');
       card.classList.add('user-card');
 

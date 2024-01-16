@@ -12,7 +12,6 @@ async function addFriend(friendEmail) {
 
     if (response.ok) {
       const result = await response.json();
-      // console.log(result.message);
       // Update the UI to show the new friend
     } else {
       console.error('Failed to add friend:', response.statusText);
@@ -47,14 +46,11 @@ async function searchUserByEmail(email) {
       method: 'GET', // Specify the method
       headers: {
         'Content-Type': 'application/json',
-        // If your API requires authentication, you'll need to include the necessary headers here
-        // 'Authorization': 'Bearer YOUR_TOKEN_HERE'
       }
     });
 
     if (response.ok) {
       const user = await response.json();
-      // console.log('User found:', user);
 
       // Remove the old card if it exists
       const oldCard = document.querySelector('.user-card');
@@ -91,15 +87,9 @@ async function searchUserByEmail(email) {
         // Add the searched email to the friends list
         addFriend(searchedEmail);
       });
-    } else {
-      // console.log('User not found');
-      // Update the DOM to show that the user was not found
-      // For example: document.getElementById('user-info').textContent = 'User not found.';
     }
   } catch (error) {
     console.error('Error searching user:', error);
-    // Update the DOM to show the error
-    // For example: document.getElementById('user-info').textContent = 'An error occurred while searching.';
   }
 }
 

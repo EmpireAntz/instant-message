@@ -17,7 +17,7 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
-  // console.log(req.session.logged_in)
+  
   res.render('profile', {logged_in: req.session.logged_in})
   
 })
@@ -30,7 +30,7 @@ router.get('/search', (req, res) => {
 })
 
 router.get('/messages/:chatId', async (req, res) => {
-   // console.log('user_name',req.session.user_name)
+   
   if (req.session.logged_in) {
     let friend;
    const messages = await Message.findAll({
@@ -74,14 +74,6 @@ router.post('/messages/:chatId', async (req, res) => {
         chatId: req.params.chatId,
         messageText: req.body.messageText
       });
-
-      // Emit an event to all clients in the same chat room except the sender
-      io.to(req.params.chatId).emit('new message', {
-        userId: req.session.user_id,
-        userName: req.session.user_name,
-        messageText: req.body.messageText
-      });
-      console.log(`Message sent to room ${req.params.chatId}`);
       res.status(200).json(newMessage);
     } catch (error) {
       console.error('Error sending message:', error);
